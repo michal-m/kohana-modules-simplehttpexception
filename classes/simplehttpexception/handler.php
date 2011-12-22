@@ -24,6 +24,20 @@ class SimpleHTTPException_Handler
 			// Return default Kohana_Exception if it is not http_exception
 			return Kohana_Exception::handler($e);
 		}
+        
+        $error = Kohana_Exception::text($e);
+
+        if (is_object(Kohana::$log))
+        {
+            // Add this exception to the log
+            Kohana::$log->add(Log::ERROR, $error);
+
+            $strace = Kohana_Exception::text($e)."\n--\n" . $e->getTraceAsString();
+            Kohana::$log->add(Log::STRACE, $strace);
+
+            // Make sure the logs are written
+            Kohana::$log->write();
+        }
 		
 		// Get exception code
 		$error_code = (int) substr($exception_class, -3);
