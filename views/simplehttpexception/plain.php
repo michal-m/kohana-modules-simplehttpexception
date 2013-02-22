@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title><?php echo $title ?></title>
+	<title><?=$code.' '.Arr::get(Response::$messages, $code, $message)?></title>
 </head>
 <body>
-	<h1><?php echo $title ?></h1>
-	<p><?php echo $message ?></p>
+    <h1><?=$code.' '.Arr::get(Response::$messages, $code, $message)?></h1>
 </body>
 </html>
